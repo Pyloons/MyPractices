@@ -358,7 +358,7 @@ legend span {
 /* #Base 960 Grid
 ================================================== */
 
-  .container                                  { position: relative; width: 960px; margin: 0 auto; padding: 0;}
+  .container                                  { position: relative; width: 100%; margin: 0 auto; padding: 0;}
   .column, .columns                           { float: left; display: inline; margin-left: 10px; margin-right: 10px; }
   .row                                        { margin-bottom: 20px; }
 
@@ -384,8 +384,8 @@ legend span {
   .container .fifteen.columns                 { width: 880px; }
   .container .sixteen.columns                 { width: 940px; }
 
-  .container .one-third.column                { width: 300px; }
-  .container .two-thirds.column               { width: 620px; }
+  .container .one-third.column                { width: 30%; }
+  .container .two-thirds.column               { width: 60%; }
 
   /* Offsets */
   .container .offset-by-one                   { padding-left: 60px;  }
@@ -412,7 +412,7 @@ legend span {
   /* Note: Design for a width of 768px */
 
   @media only screen and (min-width: 768px) and (max-width: 959px) {
-      .container                                  { width: 768px; }
+      .container                                  { width: 100%; }
       .container .column,
       .container .columns                         { margin-left: 10px; margin-right: 10px;  }
       .column.alpha, .columns.alpha               { margin-left: 0; margin-right: 10px; }
@@ -435,8 +435,8 @@ legend span {
       .container .fifteen.columns                 { width: 700px; }
       .container .sixteen.columns                 { width: 748px; }
 
-      .container .one-third.column                { width: 236px; }
-      .container .two-thirds.column               { width: 492px; }
+      .container .one-third.column                { width: 30%; }
+      .container .two-thirds.column               { width: 60%; }
 
       /* Offsets */
       .container .offset-by-one                   { padding-left: 48px; }
@@ -674,7 +674,7 @@ margin: 0 0 10px 0;
 font-size: 80%;
 color: #666;
 border-top: 4px solid #eee;
-overflow: hidden;
+overflow: scroll;
 }
 
 nav h1, nav h2 {
@@ -690,7 +690,8 @@ padding-bottom: 15px;
 }
 
 #social {
-margin-bottom: 10px;
+margin-top: 20px;
+margin-bottom: 20px;
 font-size: 13px;
   text-align: center;
 }
@@ -698,10 +699,10 @@ font-size: 13px;
 #tags {
   text-align: center;
 margin-top: 80px;
-margin-bottom: 0px;
+margin-bottom: 100px;
 font-size: 13px;
 padding-top: 15px ;
-border-top: dotted #ddd;
+//border-top: dotted #ddd;
 border-width: 1px 0;
 }
 
@@ -728,16 +729,29 @@ border: none;
 }
 
 .sidebar {
-padding-top: 60px;
+padding-top: 120px;
 font-family: "open sans", sans-serif;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background: #1c1c1c;
+  color: #fcfaf2;
+  height: 100%;
+  margin-left: 0;
+}
+
+.push-block {
+  height: 100%;
 }
 
 .sidebar p {
 font-weight: 200;
+  color: #fcfaf2;
 }
 
 .sidebar a {
 font-weight: 600;
+  color: #fcfaf2;
 }
 
 .content {
@@ -746,6 +760,7 @@ font: 400 16px/22px "open sans", sans-serif;
 padding-left: 40px;
 padding-top: 60px;
 min-height: 400px;
+  padding-bottom: 100px;
 }
 
 .footer {
@@ -755,8 +770,10 @@ width: 100%;
 .footer {
 font-size: 80%;
 color: #666;
-border-top: 4px solid #EEE;
+//border-top: 4px solid #EEE;
 overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .aside {
@@ -871,7 +888,8 @@ nav .button {
 /* Tablet Portrait size to standard 960 (devices and browsers) */
 @media only screen and (min-width: 768px) and (max-width: 959px) {
 nav {
-  width: 160px; }
+  //width: 160px;
+}
 .sidebar h2 {
   font-size: 18px;
 }
@@ -887,7 +905,7 @@ header h1 { font-size: 34px; line-height: 37px; }
 nav { position: relative; }
 nav ul,
 #logo { text-align: left; }
-.sidebar {
+.sidebar ,.push-block {
   display: none;
 }
 .content {
@@ -898,7 +916,7 @@ nav ul,
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-.sidebar {
+.sidebar ,.push-block {
   display: none;
 }
 
@@ -910,7 +928,7 @@ h1 {
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {
-.sidebar {
+.sidebar ,.push-block {
   display: none;
 }
 
@@ -925,5 +943,12 @@ h2 {
 }
 }
 
-pre { white-space: pre; overflow: auto; }
+pre { white-space: pre; overflow: auto;}
+pre { 
+white-space: pre-wrap; /*css-3*/ 
+white-space: -moz-pre-wrap; /*Mozilla,since1999*/ 
+white-space: -pre-wrap; /*Opera4-6*/ 
+white-space: -o-pre-wrap; /*Opera7*/ 
+word-wrap: break-word; /*InternetExplorer5.5+*/ 
+} 
 code, pre { font-family: Monaco,Menlo,Consolas,"Courier New",monospace; }
