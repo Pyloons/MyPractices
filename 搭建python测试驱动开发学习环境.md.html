@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Pyloons">
+  <meta name="description" content="Posts and writings by Pyloons">
+  <title>
+    Pyloons'Notes
+&ndash; 搭建Python驱动测试开发学习环境  </title>
+  <link href='http://fonts.font.im/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+  <!-- link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css"-->
+  <link rel="shortcut icon" href="https://pyloons.github.io/theme/images/favicon.ico">
+  <link href="http://www.pyloons.com/feed" type="application/atom+xml" rel="alternate" title="Pyloons'Notes Atom" />
+
+  <link rel="stylesheet" href="https://pyloons.github.io/theme/css/style.min.css?dc617ce7">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  
+<meta name="keywords" content="Django, TDD, Python">
+</head>
+<body>
+  <div class="container">
+    <div class="one-third column sidebar alpha">
+<nav>
+  <!-- h1>Hi.</h1 -->
+  <a href="http://www.pyloons.com/">
+    <img src="https://pyloons.github.io/theme/images/loon.jpg" id="gravatar" alt="My photo"/>
+  </a>
+  <h2><a href="http://www.pyloons.com/">Pyloons</a></h2>
+
+  <!--div id="bio">
+    <p><b>我是一名编程爱好者，喜欢各种与Python相关的技术，目前主要学习Django开发。<br />Email:455734349@qq.com</b></p>
+  </div-->
+
+  <div id="social">
+<div id="stalker">
+
+
+  <a title="pyloons on Github" href="https://github.com/pyloons">
+    <i class="fa fa-github"></i>
+  </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a title="Atom feed" href="http://www.pyloons.com/feed">
+  <i class="fa fa-rss"></i>
+</a>
+</div>  </div>
+
+  <div id="tags">
+    <ul>
+      <li><a href="http://www.pyloons.com/categories.html">分 类</a></li>
+      <li><a href="http://www.pyloons.com/tags.html">标 签</a></li>
+      <li><a href="http://www.pyloons.com/archives.html">归 档</a></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+<div class="disclaimer">
+  
+    <p>© Pyloons, 2017 &mdash; built with <a href="http://getpelican.com" target="_blank">Pelican</a>
+    </p>
+  </div>  </div>
+</nav>    </div>
+    <div class="one-third column push-block alpha">&nbsp;</div>
+    <div class="two-thirds column content omega">
+  <div class="meta">
+    <span>17 十一月 2017&nbsp;</span>
+    <span class="meta article_meta related">
+      <!--h3>Category: </h3-->
+      <span><i class="fa fa-folder"></i>&nbsp;<a href="http://www.pyloons.com/category/django.html">Django&nbsp;</span></a>
+      <!--h3>Tags:</h3-->
+      <span>
+        <i class="fa fa-bookmark"></i>&nbsp;
+        <a href="http://www.pyloons.com/tag/django.html">Django</a>,        <a href="http://www.pyloons.com/tag/tdd.html">TDD</a>,        <a href="http://www.pyloons.com/tag/python.html">Python</a>      </span>&nbsp;
+    </span>
+    <span>
+      <a href="/"><i class="home fa fa-home"></i></a>
+    </span>
+  </div>
+
+  <hr>
+  <h1 class="title"><a href="http://www.pyloons.com/搭建python测试驱动开发学习环境.md.html">搭建Python驱动测试开发学习环境</a></h1>
+  <div class="article_text" id="post">
+    <blockquote>
+<p>本来打算在Debian下搭建测试驱动开发学习环境，不过不知道是lxde不给力还是怎么，geckodriver始终不能正常工作，于是回到了Deepin的怀抱……</p>
+</blockquote>
+<h2>环境简介</h2>
+<ul>
+<li><strong>操作系统</strong> Deepin 15.4.1</li>
+<li><strong>Python版本</strong> Python 3.4</li>
+<li><strong>包管理器</strong> pip</li>
+<li><strong>Django版本</strong> Django 1.7</li>
+<li><strong>其他工具</strong> Selenium</li>
+<li><strong>浏览器</strong> Firefox 52</li>
+</ul>
+<h2>部署过程</h2>
+<ol>
+<li>安装操作系统</li>
+<li>下载系统镜像文件</li>
+<li>在Windows下解压文件，取出其中安装盘制作工具</li>
+<li>插入U盘制作安装盘</li>
+<li>针对目标机器安装系统</li>
+<li>安装Python 3.4</li>
+<li>操作系统自带2.7和3.5版本的Python，通过apt-get安装Python3.4</li>
+<li>安装pip（Python3.5）</li>
+<li>将系统下/usr/bin中的<code>python</code>软连接从python2改为python3</li>
+<li>通过apt-get安装python3-pip</li>
+<li>通过pip安装virtualenv和virtualenvwrapper</li>
+<li>创建指定Python3.4为解释器的虚拟环境</li>
+<li>虚拟环境内，通过pip安装Django1.7和最新版Selenium</li>
+<li>下载最新版geckodriver，解压至上述虚拟环境的python文件所在位置</li>
+<li>书写第一个测试程序，正常报错，环境搭建完毕</li>
+</ol>
+<h2>经验教训</h2>
+<p>唯一的经验教训就是<strong>不要在不熟悉的发行版上学习</strong>，容易踩到深坑里</p>
+  </div>
+  
+  
+  <!-- UY BEGIN -->
+  <div id="uyan_frame"></div>
+  <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144966"></script>
+  <!-- UY END -->
+  
+
+    </div>
+  </div>
+
+</body>
+</html>
