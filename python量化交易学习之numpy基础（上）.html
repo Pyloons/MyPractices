@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Pyloons">
+  <meta name="description" content="Posts and writings by Pyloons">
+  <title>
+    Pyloons'Notes
+&ndash; Python量化交易学习之numpy基础（上）  </title>
+  <link href='http://fonts.font.im/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+  <!-- link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css"-->
+  <link rel="shortcut icon" href="https://pyloons.github.io/theme/images/favicon.ico">
+  <link href="http://www.pyloons.com/feed" type="application/atom+xml" rel="alternate" title="Pyloons'Notes Atom" />
+
+  <link rel="stylesheet" href="https://pyloons.github.io/theme/css/style.min.css?dc617ce7">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  
+<meta name="keywords" content="">
+</head>
+<body>
+  <div class="container">
+    <div class="one-third column sidebar alpha">
+<nav>
+  <!-- h1>Hi.</h1 -->
+  <a href="http://www.pyloons.com/">
+    <img src="https://pyloons.github.io/theme/images/loon.jpg" id="gravatar" alt="My photo"/>
+  </a>
+  <h2><a href="http://www.pyloons.com/">Pyloons</a></h2>
+
+  <!--div id="bio">
+    <p><b>我是一名编程爱好者，喜欢各种与Python相关的技术，目前主要学习Django开发。<br />Email:455734349@qq.com</b></p>
+  </div-->
+
+  <div id="social">
+<div id="stalker">
+
+
+  <a title="pyloons on Github" href="https://github.com/pyloons">
+    <i class="fa fa-github"></i>
+  </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a title="Atom feed" href="http://www.pyloons.com/feed">
+  <i class="fa fa-rss"></i>
+</a>
+</div>  </div>
+
+  <div id="tags">
+    <ul>
+      <li><a href="http://www.pyloons.com/categories.html">分 类</a></li>
+      <li><a href="http://www.pyloons.com/tags.html">标 签</a></li>
+      <li><a href="http://www.pyloons.com/archives.html">归 档</a></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+<div class="disclaimer">
+  
+    <p>© Pyloons, 2017 &mdash; built with <a href="http://getpelican.com" target="_blank">Pelican</a>
+    </p>
+  </div>  </div>
+</nav>    </div>
+    <div class="one-third column push-block alpha">&nbsp;</div>
+    <div class="two-thirds column content omega">
+  <div class="meta">
+    <span>20 十一月 2017&nbsp;</span>
+    <span class="meta article_meta related">
+      <!--h3>Category: </h3-->
+      <span><i class="fa fa-folder"></i>&nbsp;<a href="http://www.pyloons.com/category/misc.html">misc&nbsp;</span></a>
+    </span>
+    <span>
+      <a href="/"><i class="home fa fa-home"></i></a>
+    </span>
+  </div>
+
+  <hr>
+  <h1 class="title"><a href="http://www.pyloons.com/python量化交易学习之numpy基础（上）.html">Python量化交易学习之numpy基础（上）</a></h1>
+  <div class="article_text" id="post">
+    <blockquote>
+<p>几个星期前购买了一本关于使用Python进行股票量化交易的书。本着进可以进入股市搜刮钱财，退可以学习机器学习的基本技能的心态，我开始学习这门入门书籍。</p>
+</blockquote>
+<p>Python的数据处理工具与网络框架比起来，虽然复杂程度低，但是要用好它们，需要更多的是自己对数据的思考——代码简单，而自己对数据没有想法，不知道如何处理才是数据分析或者机器学习的学习者的硬伤。</p>
+<p>本书该章节主要分成了4个小节。并行化思想与基础操作、基础统计概念与函数使用、正态分布、伯努利分布。由于原书的内容比例，该章分成3篇来复习，<strong>这篇文章主要讲numpy的基础操作</strong>。</p>
+<p>作者在这一节的开始和这个章节的结尾都言明并行化思想的重要性。然而并行化思想仅仅对于开发者更重要；Matlab算得快又好就用Matlab，R快又好就用R，Python快又好就用Python，对于使用这些工具的数据工作者，它们的好坏快慢难易，只有“用”或者“不用”的区别。</p>
+<p>以下汇总基本内容：</p>
+<h3>并行化的体现(与普通列表的区别)</h3>
+<ol>
+<li>numpy构建一个数组，比普通列表构造器构建一个列表，速度快了不止一个数量级；这是并行化带来的优势——<strong>确实所有人都关心效率，但这并不是数据分析的核心工作</strong>。</li>
+<li>np数组和普通列表在使用运算符的时候表现也不一样：np数组是所有元素都参与运算，而普通列表则是操作自己这个列表本身；也就是把自己所有的元素都乘以3和把自己的长度扩张3倍的区别。</li>
+</ol>
+<h3>初始化np数组（生成初始数据）</h3>
+<p>首先，来看看这章的基础部分提到了哪些初始化的方法：</p>
+<ol>
+<li>np.arange()：这个方法返回一个np数组，常用参数为start、stop、step，参数意义就不用赘述了，需要一提的是，只有stop是必要参数，start默认为0，step默认为1，并且给出step时必须指定start；</li>
+<li>np.zeros()、np.ones()、np.empty()：这三个方法参数相同，默认至少需要一个shape参数，shape可以是个int，也可以是个由int组成的tuple，生成对应维数的、内容分别为<strong>0、1、随机数</strong>的np数组</li>
+<li>np.array()、np.zeros_like()、np.ones_like()：这三个方法返回一个np数组，需要一个“长得像数组”的对象来初始化，分别返回<strong>内容与参数相同的np数组、shape与参数相同但内容全是0的np数组、shape与参数相同但内容全是1的np数组</strong>；</li>
+<li>np.eye()：生成行列数量相等，但是对角线全为1的矩阵；接受一个整数参数作为返回的矩阵的行列数量；</li>
+<li>np.linspace()：这个方法与array有相似的地方，前两个参数也类似于start和stop，但第三个参数，假设叫n，并不是步长，而是在start和stop之间生成n-2个等分点，和start与stop一起有序放进np数组。</li>
+<li>np.random.standard_normal()：其实这个方法与np.empty基本是一回事，但是唯一的区别是，这个方法生成的数据服从正态分布（关于数学概念其实我也比较懵）</li>
+</ol>
+<p>初始化这一小节有一个对于这一章十分重要的操作，即通过以下代码生成了<strong>用于讲解这个章节所有内容的虚拟股票涨跌数据</strong>：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line">1</span>
+<span class="code-line">2</span>
+<span class="code-line">3</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span></span><span class="n">stock_cnt</span> <span class="o">=</span> <span class="mi">200</span></span>
+<span class="code-line"><span class="n">view_days</span> <span class="o">=</span> <span class="mi">504</span></span>
+<span class="code-line"><span class="n">stock_day_change</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">stock_cnt</span><span class="p">,</span> <span class="n">view_days</span><span class="p">))</span></span>
+</pre></div>
+</td></tr></table>
+
+<h3>序列化操作（保存数据）</h3>
+<p>序列化说得通俗易懂一点就是把程序里生成的数据作为一个文件保存在你的硬盘上。这部分内容本来是这一节的最后一个小节，但我认为把它放在数据生成之后紧接着的地方更有助于思维连续。</p>
+<p>生成序列化文件如下：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line">1</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span></span><span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./gen/stock_day_change&#39;</span><span class="p">,</span> <span class="n">stock_day_change</span><span class="p">)</span></span>
+</pre></div>
+</td></tr></table>
+
+<p>这样就会在当前目录的gen目录下生成一个叫stock_day_change.npy的文件；如果目录不存在，只会报错，不会自动生成。</p>
+<p>想要取用也很简单，例如：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="code-line">1</pre></div></td><td class="code"><div class="highlight"><pre><span class="code-line"><span></span><span class="n">load_changes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;./gen/stock_day_change.npy&#39;</span><span class="p">)</span></span>
+</pre></div>
+</td></tr></table>
+
+<h3>索引和切片（选取数据的范围）</h3>
+<p>这一小节的内容其实很简单，就讲了两个知识点：</p>
+<ol>
+<li>np数组的切片可以写成类似于这样的形式</li>
+</ol>
+<p><code>python
+   stock_day_change[:2, :5]</code></p>
+<p>它的意义是，第一个切片操作的对象是数组的第一维度，第二个操作第二维度，以此类推。</p>
+<ol>
+<li>copy()函数。上一条中的操作，返回的是这个对象的引用，所以如果用来进行互换操作将会丢失数据，而copy()则会使切片操作指向对象的元素本身，而不仅仅是元素们的引用。用法例如：</li>
+</ol>
+<p><code>python
+   stock_day_change[:2, :5].copy()</code></p>
+<h3>数据转换与规整（对数据进行处理）</h3>
+<ol>
+<li>转换成整数：</li>
+</ol>
+<p><code>python
+   stock_day_change[:2, :5].astype(int)</code></p>
+<ol>
+<li>限制小数位数（例如保留两位小数）：</li>
+</ol>
+<p><code>python
+   np.around(stock_day_change[:2, :5], 2)</code></p>
+<ol>
+<li>
+<p>处理数据缺失：</p>
+</li>
+<li>
+<p>把某个元素至为nan：</p>
+<p><code>python
+  tmp_test[0][0] = np.nan</code></p>
+</li>
+<li>
+<p>把数组中的nan用0代替：</p>
+<p><code>python
+  tmp_test = np.nan_to_num(tmp_test)</code></p>
+</li>
+</ol>
+<h3>条件筛选（选取符合条件的数据）</h3>
+<p>同上面小节一样，这些操作统统只适用于numpy数组</p>
+<ol>
+<li>生成符合条件的元素的标记mask：</li>
+</ol>
+<p><code>python
+   mask = tmp_test &gt; 0.5 # 这里的tmp_test是个有内容的np数组</code></p>
+<ol>
+<li>使用上述mask筛选数据，该用法返回一个只含有筛选结果的np数组：</li>
+</ol>
+<p><code>python
+   tmp_test[mask]</code></p>
+<ol>
+<li>对符合条件的数据进行操作：</li>
+</ol>
+<p><code>python
+   tmp_test[tmp_test &gt; 0.5] = 1</code></p>
+<ol>
+<li>多重条件，有与（|）和并（&amp;）连接符，并且每个条件用括号括起来：</li>
+</ol>
+<p><code>python
+   tmp_test[(tmp_test &gt; 1) | (tmp_test &lt; -1)]</code></p>
+<h3>通用序列函数（可能是数据处理和筛选的更工程化的方法）</h3>
+<p>由于是函数，具体内容可以参考help文档，这里就简单带过</p>
+<ol>
+<li>
+<p>np.all()：接受一个mask作为参数，要求mask的元素全为True，否则返回False；</p>
+</li>
+<li>
+<p>np.any()：同样接受一个mask，但mask内有一个True，就会返回True；</p>
+</li>
+<li>
+<p>np.maximum()和np.minimum()：同样接受两个np数组作为参数，会将两个数组对应的元素两两比较，留下较大的或较小的，放在返回的数组的对应位置上；</p>
+</li>
+<li>
+<p>np.unique()：接受一个np数组作为参数，去重，然后返回去重后的数组；</p>
+</li>
+<li>
+<p>np.diff()：这个函数比较奇妙，总体上来讲是根据一定的方向，计算元素间的差值；建议积极使用以掌握用法，一两句话讲不清，具体查看help文档或者重新翻书；</p>
+</li>
+<li>
+<p>np.where()：据说这个函数十分重要。该函数接收三个参数，第一个参数是个mask，如果第一个参数成立，则把第一个参数中的数组<strong>符合条件</strong>的元素换成第二个参数，如果不成立，就换成第三个参数（或者第三个参数对应位置的内容）。</p>
+</li>
+</ol>
+<p>如果你要使用符合条件，请使用np.logical_and()和np.logical_or()</p>
+<h3>写在最后</h3>
+<p>这一篇对于任何一个码农来说都是很简单的，这容易导致一个错觉，让人觉得什么数据分析什么量化交易会写代码就能学。其实不是这样的。下一篇会复习统计及其函数，同样会让码农强化我刚才说的想法。不过到第三篇，讲到一部分策略的应用的时候就不会这样想了，那时候工具啊代码啊都是浮云，股票市场的投机逻辑思维才是最具有指导性的。</p>
+<p>Python是一门无所不能的语言，但是谈到其优越性，必然是围绕机器学习的。软件开发略逊于Java和C；移动平台明显劣于Java系；网络开发也只是做到与Java和PHP平分秋色；硬件开发相比较C而言，只能说勉强有一点点解决方案。唯有围绕机器学习展开的数据分析、模型训练等等，明显超越同一个范畴的R和MATLAB。</p>
+<p>对于时间紧迫的我，也只有小步快跑才能避免失败了。</p>
+  </div>
+  
+  
+  <!-- UY BEGIN -->
+  <div id="uyan_frame"></div>
+  <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144966"></script>
+  <!-- UY END -->
+  
+
+    </div>
+  </div>
+
+</body>
+</html>

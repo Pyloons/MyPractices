@@ -1,5 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Pyloons'Notes</title><link href="http://www.pyloons.com/" rel="alternate"></link><link href="http://www.pyloons.com/feed" rel="self"></link><id>http://www.pyloons.com/</id><updated>2017-11-17T22:40:00+08:00</updated><entry><title>搭建Python驱动测试开发学习环境</title><link href="http://www.pyloons.com/%E6%90%AD%E5%BB%BApython%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83.html" rel="alternate"></link><published>2017-11-17T22:40:00+08:00</published><updated>2017-11-17T22:40:00+08:00</updated><author><name>Pyloons</name></author><id>tag:www.pyloons.com,2017-11-17:/搭建python测试驱动开发学习环境.html</id><summary type="html"></summary><content type="html">&lt;blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Pyloons'Notes</title><link href="http://www.pyloons.com/" rel="alternate"></link><link href="http://www.pyloons.com/feed" rel="self"></link><id>http://www.pyloons.com/</id><updated>2017-11-20T00:27:00+08:00</updated><entry><title>Python量化交易学习之numpy基础（上）</title><link href="http://www.pyloons.com/python%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%AD%A6%E4%B9%A0%E4%B9%8Bnumpy%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%8A%EF%BC%89.html" rel="alternate"></link><published>2017-11-20T00:27:00+08:00</published><updated>2017-11-20T00:27:00+08:00</updated><author><name>Pyloons</name></author><id>tag:www.pyloons.com,2017-11-20:/python量化交易学习之numpy基础（上）.html</id><summary type="html"></summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;几个星期前购买了一本关于使用Python进行股票量化交易的书。本着进可以进入股市搜刮钱财，退可以学习机器学习的基本技能的心态，我开始学习这门入门书籍。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Python的数据处理工具与网络框架比起来，虽然复杂程度低，但是要用好它们，需要更多的是自己对数据的思考——代码简单，而自己对数据没有想法，不知道如何处理才是数据分析或者机器学习的学习者的硬伤。&lt;/p&gt;
+&lt;p&gt;本书该章节主要分成了4个小节。并行化思想与基础操作、基础统计概念与函数使用、正态分布、伯努利分布。由于原书的内容比例，该章分成3篇来复习，&lt;strong&gt;这篇文章主要讲numpy的基础操作&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;作者在这一节的开始和这个章节的结尾都言明并行化思想的重要性。然而并行化思想仅仅对于开发者更重要；Matlab算得快又好就用Matlab，R快又好就用R，Python快又好就用Python，对于使用这些工具的数据工作者，它们的好坏快慢难易，只有“用”或者“不用”的区别。&lt;/p&gt;
+&lt;p&gt;以下汇总基本内容：&lt;/p&gt;
+&lt;h3&gt;并行化的体现(与普通列表的区别)&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;numpy构建一个数组，比普通列表构造器构建一个列表，速度快了不止一个数量级；这是并行化带来的优势——&lt;strong&gt;确实所有人都关心效率，但这并不是数据分析的核心工作&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;np数组和普通列表在使用运算符的时候表现也不一样：np数组是所有元素都参与运算，而普通列表则是操作自己这个列表本身；也就是把自己所有的元素都乘以3和把自己的长度扩张3倍的区别。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;初始化np数组（生成初始数据）&lt;/h3&gt;
+&lt;p&gt;首先，来看看这章的基础部分提到了哪些初始化的方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;np.arange()：这个方法返回一个np数组，常用参数为start、stop、step，参数意义就不用赘述了，需要一提的是，只有stop是必要参数，start默认为0，step默认为1，并且给出step时必须指定start；&lt;/li&gt;
+&lt;li&gt;np.zeros()、np.ones()、np.empty()：这三个方法参数相同，默认至少需要一个shape参数，shape可以是个int，也可以是个由int组成的tuple，生成对应维数的、内容分别为&lt;strong&gt;0、1、随机数&lt;/strong&gt;的np数组&lt;/li&gt;
+&lt;li&gt;np.array()、np.zeros_like()、np.ones_like()：这三个方法返回一个np数组，需要一个“长得像数组”的对象来初始化，分别返回&lt;strong&gt;内容与参数相同的np数组、shape与参数相同但内容全是0的np数组、shape与参数相同但内容全是1的np数组&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;np.eye()：生成行列数量相等，但是对角线全为1的矩阵；接受一个整数参数作为返回的矩阵的行列数量；&lt;/li&gt;
+&lt;li&gt;np.linspace()：这个方法与array有相似的地方，前两个参数也类似于start和stop，但第三个参数，假设叫n，并不是步长，而是在start和stop之间生成n-2个等分点，和start与stop一起有序放进np数组。&lt;/li&gt;
+&lt;li&gt;np.random.standard_normal()：其实这个方法与np.empty基本是一回事，但是唯一的区别是，这个方法生成的数据服从正态分布（关于数学概念其实我也比较懵）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;初始化这一小节有一个对于这一章十分重要的操作，即通过以下代码生成了&lt;strong&gt;用于讲解这个章节所有内容的虚拟股票涨跌数据&lt;/strong&gt;：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;1&lt;/span&gt;
+&lt;span class="code-line"&gt;2&lt;/span&gt;
+&lt;span class="code-line"&gt;3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;stock_cnt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;view_days&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;504&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;stock_day_change&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;standard_normal&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;stock_cnt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;view_days&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h3&gt;序列化操作（保存数据）&lt;/h3&gt;
+&lt;p&gt;序列化说得通俗易懂一点就是把程序里生成的数据作为一个文件保存在你的硬盘上。这部分内容本来是这一节的最后一个小节，但我认为把它放在数据生成之后紧接着的地方更有助于思维连续。&lt;/p&gt;
+&lt;p&gt;生成序列化文件如下：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./gen/stock_day_change&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;stock_day_change&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;这样就会在当前目录的gen目录下生成一个叫stock_day_change.npy的文件；如果目录不存在，只会报错，不会自动生成。&lt;/p&gt;
+&lt;p&gt;想要取用也很简单，例如：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;load_changes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./gen/stock_day_change.npy&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h3&gt;索引和切片（选取数据的范围）&lt;/h3&gt;
+&lt;p&gt;这一小节的内容其实很简单，就讲了两个知识点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;np数组的切片可以写成类似于这样的形式&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;python
+   stock_day_change[:2, :5]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;它的意义是，第一个切片操作的对象是数组的第一维度，第二个操作第二维度，以此类推。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;copy()函数。上一条中的操作，返回的是这个对象的引用，所以如果用来进行互换操作将会丢失数据，而copy()则会使切片操作指向对象的元素本身，而不仅仅是元素们的引用。用法例如：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;python
+   stock_day_change[:2, :5].copy()&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;数据转换与规整（对数据进行处理）&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;转换成整数：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;python
+   stock_day_change[:2, :5].astype(int)&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;限制小数位数（例如保留两位小数）：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;python
+   np.around(stock_day_change[:2, :5], 2)&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;处理数据缺失：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;把某个元素至为nan：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;python
+  tmp_test[0][0] = np.nan&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;把数组中的nan用0代替：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;python
+  tmp_test = np.nan_to_num(tmp_test)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;条件筛选（选取符合条件的数据）&lt;/h3&gt;
+&lt;p&gt;同上面小节一样，这些操作统统只适用于numpy数组&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;生成符合条件的元素的标记mask：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;python
+   mask = tmp_test &amp;gt; 0.5 # 这里的tmp_test是个有内容的np数组&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用上述mask筛选数据，该用法返回一个只含有筛选结果的np数组：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;python
+   tmp_test[mask]&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;对符合条件的数据进行操作：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;python
+   tmp_test[tmp_test &amp;gt; 0.5] = 1&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;多重条件，有与（|）和并（&amp;amp;）连接符，并且每个条件用括号括起来：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;python
+   tmp_test[(tmp_test &amp;gt; 1) | (tmp_test &amp;lt; -1)]&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;通用序列函数（可能是数据处理和筛选的更工程化的方法）&lt;/h3&gt;
+&lt;p&gt;由于是函数，具体内容可以参考help文档，这里就简单带过&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;np.all()：接受一个mask作为参数，要求mask的元素全为True，否则返回False；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;np.any()：同样接受一个mask，但mask内有一个True，就会返回True；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;np.maximum()和np.minimum()：同样接受两个np数组作为参数，会将两个数组对应的元素两两比较，留下较大的或较小的，放在返回的数组的对应位置上；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;np.unique()：接受一个np数组作为参数，去重，然后返回去重后的数组；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;np.diff()：这个函数比较奇妙，总体上来讲是根据一定的方向，计算元素间的差值；建议积极使用以掌握用法，一两句话讲不清，具体查看help文档或者重新翻书；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;np.where()：据说这个函数十分重要。该函数接收三个参数，第一个参数是个mask，如果第一个参数成立，则把第一个参数中的数组&lt;strong&gt;符合条件&lt;/strong&gt;的元素换成第二个参数，如果不成立，就换成第三个参数（或者第三个参数对应位置的内容）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果你要使用符合条件，请使用np.logical_and()和np.logical_or()&lt;/p&gt;
+&lt;h3&gt;写在最后&lt;/h3&gt;
+&lt;p&gt;这一篇对于任何一个码农来说都是很简单的，这容易导致一个错觉，让人觉得什么数据分析什么量化交易会写代码就能学。其实不是这样的。下一篇会复习统计及其函数，同样会让码农强化我刚才说的想法。不过到第三篇，讲到一部分策略的应用的时候就不会这样想了，那时候工具啊代码啊都是浮云，股票市场的投机逻辑思维才是最具有指导性的。&lt;/p&gt;
+&lt;p&gt;Python是一门无所不能的语言，但是谈到其优越性，必然是围绕机器学习的。软件开发略逊于Java和C；移动平台明显劣于Java系；网络开发也只是做到与Java和PHP平分秋色；硬件开发相比较C而言，只能说勉强有一点点解决方案。唯有围绕机器学习展开的数据分析、模型训练等等，明显超越同一个范畴的R和MATLAB。&lt;/p&gt;
+&lt;p&gt;对于时间紧迫的我，也只有小步快跑才能避免失败了。&lt;/p&gt;</content></entry><entry><title>搭建Python驱动测试开发学习环境</title><link href="http://www.pyloons.com/%E6%90%AD%E5%BB%BApython%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83.html" rel="alternate"></link><published>2017-11-17T22:40:00+08:00</published><updated>2017-11-17T22:40:00+08:00</updated><author><name>Pyloons</name></author><id>tag:www.pyloons.com,2017-11-17:/搭建python测试驱动开发学习环境.html</id><summary type="html"></summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;本来打算在Debian下搭建测试驱动开发学习环境，不过不知道是lxde不给力还是怎么，geckodriver始终不能正常工作，于是回到了Deepin的怀抱……&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;环境简介&lt;/h2&gt;
