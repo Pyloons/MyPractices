@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Pyloons">
+  <meta name="description" content="Posts and writings by Pyloons">
+  <title>
+    Pyloons'Notes
+&ndash; Python量化交易学习之numpy基础（中）  </title>
+  <link href='http://fonts.font.im/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+  <!-- link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css"-->
+  <link rel="shortcut icon" href="https://pyloons.github.io/theme/images/favicon.ico">
+  <link href="http://www.pyloons.com/feed" type="application/atom+xml" rel="alternate" title="Pyloons'Notes Atom" />
+
+  <link rel="stylesheet" href="https://pyloons.github.io/theme/css/style.min.css?dc617ce7">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  
+<meta name="keywords" content="">
+</head>
+<body>
+  <div class="container">
+    <div class="one-third column sidebar alpha">
+<nav>
+  <!-- h1>Hi.</h1 -->
+  <a href="http://www.pyloons.com/">
+    <img src="https://pyloons.github.io/theme/images/loon.jpg" id="gravatar" alt="My photo"/>
+  </a>
+  <h2><a href="http://www.pyloons.com/">Pyloons</a></h2>
+
+  <!--div id="bio">
+    <p><b>我是一名编程爱好者，喜欢各种与Python相关的技术，目前主要学习Django开发。<br />Email:455734349@qq.com</b></p>
+  </div-->
+
+  <div id="social">
+<div id="stalker">
+
+
+  <a title="pyloons on Github" href="https://github.com/pyloons">
+    <i class="fa fa-github"></i>
+  </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a title="Atom feed" href="http://www.pyloons.com/feed">
+  <i class="fa fa-rss"></i>
+</a>
+</div>  </div>
+
+  <div id="tags">
+    <ul>
+      <li><a href="http://www.pyloons.com/categories.html">分 类</a></li>
+      <li><a href="http://www.pyloons.com/tags.html">标 签</a></li>
+      <li><a href="http://www.pyloons.com/archives.html">归 档</a></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+<div class="disclaimer">
+  
+    <p>© Pyloons, 2017 &mdash; built with <a href="http://getpelican.com" target="_blank">Pelican</a>
+    </p>
+  </div>  </div>
+</nav>    </div>
+    <div class="one-third column push-block alpha">&nbsp;</div>
+    <div class="two-thirds column content omega">
+  <div class="meta">
+    <span>20 十一月 2017&nbsp;</span>
+    <span class="meta article_meta related">
+      <!--h3>Category: </h3-->
+      <span><i class="fa fa-folder"></i>&nbsp;<a href="http://www.pyloons.com/category/misc.html">misc&nbsp;</span></a>
+    </span>
+    <span>
+      <a href="/"><i class="home fa fa-home"></i></a>
+    </span>
+  </div>
+
+  <hr>
+  <h1 class="title"><a href="http://www.pyloons.com/python量化交易学习之numpy基础（中）.html">Python量化交易学习之numpy基础（中）</a></h1>
+  <div class="article_text" id="post">
+    <p>在<a href="http://www.pyloons.com/python%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%AD%A6%E4%B9%A0%E4%B9%8Bnumpy%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%8A%EF%BC%89.html">上一篇</a>中，我复习了numpy的基础知识，这一篇我将继续复习numpy的<strong>统计函数</strong>，与基础操作不同的是，这一篇与量化分析有一定的直接联系。</p>
+<h3>这一篇介绍了哪些函数</h3>
+<ol>
+<li>np.mean() 期望。期望是指每次可能结果的概率乘以其结果的总和，反应一组数据平均取值，用于表示分布的中心位置。</li>
+<li>np.var() 方差。衡量一组数据的离散程度。数据与期望之间的离散程度越大，方差越大。</li>
+<li>np.std() 标准差。方差的平方根，与方差一样都表示离散程度，但是由于其单位与变量一致，故使用更频繁。</li>
+<li>np.min()和np.max() 其作用不必赘述，但是有个很有意思的特点是，这两个方法都有个参数叫axis，就目前学习到的知识，这个参数可以取0或者1两个数字，如果取0，被处理的矩阵按列处理，如果取1则按行处理。</li>
+<li>np.argmin()和np.argmax() 上面的min和max只能计算出最小或者最大的那个值，而这两个方法能计算出最小或者最大值的位置。</li>
+</ol>
+<h3>超纲内容</h3>
+<p>这篇文章引入了一部分matplotlib的陌生知识，主要是用来绘图；这就比较新手不友好了。</p>
+<p>这部分内容我不会过于深究，而是到绘制图表的章节再具体总结。</p>
+  </div>
+  
+  
+  <!-- UY BEGIN -->
+  <div id="uyan_frame"></div>
+  <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144966"></script>
+  <!-- UY END -->
+  
+
+    </div>
+  </div>
+
+</body>
+</html>
