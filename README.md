@@ -1,2 +1,2 @@
-All for
-# Show my self
+# 个人收纳仓库
+包括Issues博客（感谢新增的删除issue功能）、Leetcode刷题笔记、实验楼小项目抄写与改进、文档收藏等功能。
