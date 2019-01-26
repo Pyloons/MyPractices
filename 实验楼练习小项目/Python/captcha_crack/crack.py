@@ -53,7 +53,7 @@ class CrackCaptcha(object):
             inletter = False
         return letters
 
-    def convert_two_color(self, pixes=[] fp=None):
+    def convert_two_color(self, pixes=[], fp=None):
         for x in range(self.im.size[1]):
             for y in range(self.im.size[0]):
                 pix = self.im.getpixel((y, x))
