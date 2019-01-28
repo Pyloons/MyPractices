@@ -38,3 +38,26 @@ class Solution(object):
         return res
 '''
 
+'''
+迁移到中国版之后发现的更好的一个版本，时间消耗是我的一半，还是字典大法
+class Solution:
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        dic = {}
+        for num in nums1:
+            if num not in dic:
+                dic[num] = 1
+            else:
+                dic[num] += 1
+        for num in nums2:
+            if num in dic and dic[num] > 0:
+                dic[num] -= 1
+                res.append(num)
+        return res
+'''
+
