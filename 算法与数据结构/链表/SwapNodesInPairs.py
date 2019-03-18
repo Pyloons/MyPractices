@@ -17,7 +17,7 @@ Given 1->2->3->4, you should return the list as 2->1->4->3.
 #         self.next = None
 
 class Solution:
-    def swapPairs(self, head: ListNode) -> ListNode:
+    def swapPairs(self, head):
         if head == None or head.next == None:
             return head
         second = head.next
