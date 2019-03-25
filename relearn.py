@@ -82,11 +82,17 @@ SY = {f'实验{x}':3 for x in range(3,21)}
 # 自动生成挑战号
 TZ = {f'挑战{x}':4 for x in range(1,19)}
 
+# 普通实验列表
+LS = {
+        'Python设计模式':5,
+}
+
 # 把所有字典合起来
 TOTAL = {}
 TOTAL.update(KL)
 TOTAL.update(SY)
 TOTAL.update(TZ)
+TOTAL.update(LS)
 
 weight_top = 10
 weight_count = 0
