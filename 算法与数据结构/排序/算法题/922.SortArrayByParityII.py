@@ -93,13 +93,15 @@ class Solution_Two_Pass(object):
 
         t = 0
         # 这里和下面的循环都没必要用枚举，因为根本没用上
-        for i, x in enumerate(A):
+        # for i, x in enumerate(A):
+        for x in A:
             if x % 2 == 0:
                 ans[t] = x
                 t += 2
 
         t = 1
-        for i, x in enumerate(A):
+        # for i, x in enumerate(A):
+        for x in A:
             if x % 2 == 1:
                 ans[t] = x
                 t += 2
