@@ -77,15 +77,19 @@ KL = {
         'LC969':4,
 }
 
-# 自动生成实验号
-SY = {f'实验{x}':3 for x in range(3,21)}
+# 自动生成楼+实验号
+SY = {f'实验{x}':4 for x in range(3,21)}
 
-# 自动生成挑战号
-TZ = {f'挑战{x}':4 for x in range(1,19)}
+# 自动生成楼+挑战号
+TZ = {f'挑战{x}':5 for x in range(1,19)}
 
 # 普通实验列表
 LS = {
-        'Python设计模式':5,
+        'Python设计模式':3,
+        'NumPy使用教程 1':3,
+        'NumPy使用教程 2':3,
+        'NumPy使用教程 3':3,
+        'NumPy使用教程 4':3,
 }
 
 # 把所有字典合起来
