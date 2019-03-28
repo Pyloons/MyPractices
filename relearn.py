@@ -81,23 +81,24 @@ KL = {
 SY = {f'实验{x}':4 for x in range(3,21)}
 
 # 自动生成楼+挑战号
-TZ = {f'挑战{x}':5 for x in range(1,19)}
+TZ = {f'挑战{x}':5 for x in range(1,20)}
 
 # 普通实验列表
-LS = {
-        'Python设计模式':3,
-        'NumPy使用教程 1':3,
-        'NumPy使用教程 2':3,
-        'NumPy使用教程 3':3,
-        'NumPy使用教程 4':3,
-}
+# 楼＋课程有点根本顾不过来，普通实验就不再设置复习了
+# LS = {
+#         'Python设计模式':3,
+#         'NumPy使用教程 1':3,
+#         'NumPy使用教程 2':3,
+#         'NumPy使用教程 3':3,
+#         'NumPy使用教程 4':3,
+# }
 
 # 把所有字典合起来
 TOTAL = {}
 TOTAL.update(KL)
 TOTAL.update(SY)
 TOTAL.update(TZ)
-TOTAL.update(LS)
+# TOTAL.update(LS)
 
 weight_top = 10
 weight_count = 0
