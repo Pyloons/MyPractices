@@ -45,8 +45,8 @@ def co2_gdp_plot():
             xticks_name.append(in_codes(x))
     plt.xticks(xticks_position, xticks_name, rotation='vertical')
     
-    co2_sum = ax.plot(range(len(co2)), co2['sum'], color='blue', label='CO2-SUM')
-    gdp_sum = ax.plot(range(len(gdp)), gdp['sum'], color='orange', label='GDP-SUM')
+    # co2_sum = ax.plot(range(len(co2)), co2['sum'], color='blue', label='CO2-SUM')
+    # gdp_sum = ax.plot(range(len(gdp)), gdp['sum'], color='orange', label='GDP-SUM')
     ax.legend()
 
     # fig = plt.subplot()
