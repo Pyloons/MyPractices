@@ -1,15 +1,10 @@
-'''
-需要复习，但是却无从下手的时候，运行这个
-由于KL这个字典的特殊性，规定：
-经典算法与数据结构从顶部加入
-LeetCode题从底部加入
-并且每做一道题就要添加一次
-否则等着混乱吧……
-实在要是混乱了，就用bs4来解析一下静态页面好了，那样需要维护的就只有经典题了
-'''
+# 权重说明：
+# 我的权重设置标准是，基准值：中等3分，容易2分，困难1分，如果带官方解答就在基准值上+1分
+# 如果是面经上的经典算法，则按书上给的星级来给分
+# 如果是实验楼的课程，那么挑战5分，实验4分
 
-# 上：经典算法；下：LeetCode算法
-KL = {
+# 经典算法
+CL = {
         '快速排序':5,
         '堆排序':4,
         '冒泡排序':4,
@@ -18,6 +13,25 @@ KL = {
         '希尔排序':3,
         '基数排序':3,
         '选择排序':2,
+}
+
+# 要付费的题
+LC_PAY = {
+        'LC272':1,
+}
+
+# 不是算法题
+LC_NOT_ALG = {
+        'LC178':3,
+}
+
+# LeetCode算法
+LC_ACed = {
+        'LC563':3,
+        'LC680':3,
+        'LC810':2,
+        'LC83':3,
+        'LC698':4,
         'LC981':4,
         'LC922':3,
         'LC852':3,
@@ -75,7 +89,14 @@ KL = {
         'LC8':3,
         'LC973':4,
         'LC969':4,
+        'LC575':3,
+        'LC944':3,
+        'LC855':4,
 }
+
+algorithms = {}
+algorithms.update(LC_ACed)
+algorithms.update(CL)
 
 # 自动生成楼+实验号
 SY = {f'实验{x}':4 for x in range(3,21)}
@@ -85,37 +106,25 @@ TZ = {f'挑战{x}':5 for x in range(1,23)}
 
 # 普通实验列表
 # 楼＋课程有点根本顾不过来，普通实验就不再设置复习了
+# 但做过的实验一定要写在里面
 # LS = {
 #         'Python设计模式':3,
 #         'NumPy使用教程 1':3,
 #         'NumPy使用教程 2':3,
 #         'NumPy使用教程 3':3,
 #         'NumPy使用教程 4':3,
+#         'Pandas使用教程 1':3,
 # }
+
+shiyanlou = {}
+shiyanlou.update(SY)
+shiyanlou.update(TZ)
+# shiyanlou.update(LS)
 
 # 把所有字典合起来
 TOTAL = {}
-TOTAL.update(KL)
+TOTAL.update(CL)
+TOTAL.update(LC_ACed)
 TOTAL.update(SY)
 TOTAL.update(TZ)
 # TOTAL.update(LS)
-
-weight_top = 10
-weight_count = 0
-result = []
-
-from random import choice
-table = []
-for i in TOTAL:
-    for _ in range(TOTAL[i]**2):
-        table.append(i)
-
-while weight_count < weight_top:
-    rand_item = choice(table)
-    if rand_item not in result:
-        result.append(rand_item)
-        weight_count += TOTAL[rand_item]
-
-for x in result:
-    print(x)
-
