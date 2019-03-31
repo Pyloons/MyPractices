@@ -27,6 +27,8 @@ LC_NOT_ALG = {
 
 # LeetCode算法
 LC_ACed = {
+        'LC877':4,
+        'LC338':3,
         'LC563':3,
         'LC680':3,
         'LC810':2,
