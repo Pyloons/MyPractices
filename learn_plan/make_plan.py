@@ -8,17 +8,22 @@
 # 只把学过的普通课和会员课加入数据集，不复习，时间真的不够
 '''
 
-from relearn_pack import new_lc_list, relearn_list, algorithms, shiyanlou
+from relearn_pack import new_lc_list, relearn_list, algorithms, shiyanlou, STATUSES
 
-print('==========今日新题==========')
-for x in new_lc_list():
-    print(x)
+STATUS = STATUSES['default']
 
-print('==========今日复习==========')
-for x in relearn_list(algorithms):
-    print(x)
+if STATUS['new']:
+    print('==========今日新题==========')
+    for x in new_lc_list(STATUS['new']):
+        print(x)
+
+if STATUS['reform']:
+    print('==========今日复习==========')
+    for x in relearn_list(algorithms, STATUS['reform']):
+        print(x)
     
-print('==========楼+复习==========')
-for x in relearn_list(shiyanlou, 3):
-    print(x)
+if STATUS['louplus']:
+    print('==========楼+复习==========')
+    for x in relearn_list(shiyanlou, STATUS['louplus']):
+        print(x)
 
